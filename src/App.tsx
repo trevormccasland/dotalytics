@@ -1,24 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import { getMatches, Matches } from './services/matchesClient';
 import './App.css';
 
 function App() {
+  const [matches, setMatches] = useState([] as Matches)
+  useEffect(() => {
+    const fetchMatches = async () => {
+      setMatches(await getMatches())
+    }
+    fetchMatches()
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {matches.map(match => {
+        return (
+          <div>
+            <div>Match ID: {match.match_id}</div>
+            <table className="matchesTable">
+              <thead>
+                <tr>
+                  <th>
+                    Hero Name
+                  </th>
+                  <th>
+                    Net Worth
+                  </th>
+                </tr>
+              </thead>
+              <tbody> 
+                  {match.players.map(player => {
+                    return (
+                      <tr>
+                        <td>
+                          {player.hero_name.split('npc_dota_hero_')[1]}
+                        </td>
+                        <td>
+                          {player.net_worth}
+                        </td>
+                      </tr>
+                    )
+                  })}
+              </tbody>
+            </table>
+          </div>
+        )
+      })}
     </div>
   );
 }
