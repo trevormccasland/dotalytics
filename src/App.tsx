@@ -1,50 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { getMatches, Matches } from './services/matchesClient';
 import './App.css';
+import MatchTable from './components/MatchTable';
+import MatchesRequestedInput from './components/MatchesRequestedInput';
 
 function App() {
   const [matches, setMatches] = useState([] as Matches)
+  const [matchesRequested, setMatchesRequested] = useState(5)
+  const [loading, setLoading] = useState(true)
+  const [accountId, setAccountId] = useState('120525879')
+
   useEffect(() => {
     const fetchMatches = async () => {
-      setMatches(await getMatches())
+      setLoading(true)
+      setMatches(await getMatches(matchesRequested, accountId))
+      setLoading(false)
     }
     fetchMatches()
-  }, [])
+  }, [matchesRequested, accountId])
+
+  const selectOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => setMatchesRequested(parseInt(e.target.value))
+  const accountIdInputOnChange = (e :React.ChangeEvent<HTMLInputElement>) => setAccountId(e.target.value)
   return (
     <div className="App">
-      {matches.map(match => {
-        return (
-          <div>
-            <div>Match ID: {match.match_id}</div>
-            <table className="matchesTable">
-              <thead>
-                <tr>
-                  <th>
-                    Hero Name
-                  </th>
-                  <th>
-                    Net Worth
-                  </th>
-                </tr>
-              </thead>
-              <tbody> 
-                  {match.players.map(player => {
-                    return (
-                      <tr>
-                        <td>
-                          {player.hero_name.split('npc_dota_hero_')[1]}
-                        </td>
-                        <td>
-                          {player.net_worth}
-                        </td>
-                      </tr>
-                    )
-                  })}
-              </tbody>
-            </table>
-          </div>
-        )
-      })}
+      <div className="TopBar">
+        <h1 className='pageHeader'>{`Displaying the last ${matchesRequested} games`}</h1>
+        <div className='AccountIdInput'>
+          <label className='accountIdLabel'>Account ID</label>
+          <input value={accountId} onChange={accountIdInputOnChange} />
+        </div>
+        <MatchesRequestedInput selectOnChange={selectOnChange} />
+      </div>
+      {loading && <h2 className='loadingHeader'>loading ...</h2>}
+      {!loading && <div className='matchesTableContainer'>
+        {matches.map(match => {
+          return <MatchTable key={match.match_id} match={match} />
+        })}
+      </div>}
     </div>
   );
 }

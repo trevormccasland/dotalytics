@@ -82,10 +82,10 @@ export interface PicksBan {
   order: number
 }
 
-
-export const getMatches = async (): Promise<Matches> => {
+// account ID to test with 120525879
+export const getMatches = async (matchesRequested: number, accountId: string): Promise<Matches> => {
     try {
-        const url = 'http://localhost:8888/matches?account_id=120525879'
+        const url = `http://localhost:8888/matches?account_id=${accountId}&matches_requested=${matchesRequested}`
         const response = await fetch(url)
         if (!response.ok) {
             throw new Error(`status ${response.status}`)

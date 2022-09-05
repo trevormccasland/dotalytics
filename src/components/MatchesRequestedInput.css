@@ -1,0 +1,10 @@
+.matchesRequestedContainer {
+    position:fixed;
+    right: 100px;
+}
+  
+.matchesRequestedLabel {
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+}

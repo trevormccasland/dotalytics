@@ -1,0 +1,13 @@
+.matchesTable {
+    width: 100%;
+    background-color: ghostwhite;
+    margin-bottom: 20px;
+}
+
+.tableHeader {
+    background-color: gainsboro;
+    margin: 0;
+    padding-left: 40px;
+    display: flex;
+}
+
