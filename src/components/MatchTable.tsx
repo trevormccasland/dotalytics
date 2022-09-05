@@ -9,9 +9,9 @@ type MatchTableProps = {
 const MatchTable : FC<MatchTableProps> = ({match}): ReactElement => {
     return (
       <div>
-          <h2 className='tableHeader'>Match ID: {match.match_id} Date: {new Date(match.start_time * 1000).toDateString()}</h2>
+          <h2 className='Header'>Match ID: {match.match_id} Date: {new Date(match.start_time * 1000).toDateString()}</h2>
           <table className="matchesTable">
-            <thead>
+            <thead className='tableHeader'>
               <tr>
                 <th>
                   Hero Name
