@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   position: fixed;
+  z-index: 1;
   width: 100%;
 }
 
@@ -16,7 +17,7 @@
   margin: 10px;
 }
 
-.matchesTableContainer {
+.dataContainer {
   padding-top: 75px;
   width: auto;
   margin-left: 20px;

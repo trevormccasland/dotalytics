@@ -3,6 +3,8 @@ import { getMatches, Matches } from './services/matchesClient';
 import './App.css';
 import MatchTable from './components/MatchTable';
 import MatchesRequestedInput from './components/MatchesRequestedInput';
+import KillsChart from './components/KillsChart';
+import HeroPicksChart from './components/HeroPicksChart';
 
 function App() {
   const [matches, setMatches] = useState([] as Matches)
@@ -21,6 +23,8 @@ function App() {
 
   const selectOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => setMatchesRequested(parseInt(e.target.value))
   const accountIdInputOnChange = (e :React.ChangeEvent<HTMLInputElement>) => setAccountId(e.target.value)
+  
+  
   return (
     <div className="App">
       <div className="TopBar">
@@ -32,11 +36,16 @@ function App() {
         <MatchesRequestedInput selectOnChange={selectOnChange} />
       </div>
       {loading && <h2 className='loadingHeader'>loading ...</h2>}
-      {!loading && <div className='matchesTableContainer'>
-        {matches.map(match => {
-          return <MatchTable key={match.match_id} match={match} />
-        })}
-      </div>}
+      {!loading && (
+        <div className='dataContainer'>
+          <KillsChart matches={matches} />
+          <HeroPicksChart matches={matches} />
+        
+          {matches.map(match => {
+            return <MatchTable key={match.match_id} match={match} />
+          })}
+        </div>
+      )}
     </div>
   );
 }
