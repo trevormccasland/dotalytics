@@ -1,15 +1,15 @@
-import React, { FC, ReactElement } from 'react';
-import { Match } from '../services/matchesClient';
-import'./MatchTable.css'
+import React, { FC, ReactElement } from 'react'
+import { Match } from '../services/matchesClient'
+import './MatchTable.css'
 
-type MatchTableProps = {
-    match: Match
+interface MatchTableProps {
+  match: Match
 }
 
-const MatchTable : FC<MatchTableProps> = ({match}): ReactElement => {
-    return (
+const MatchTable: FC<MatchTableProps> = ({ match }): ReactElement => {
+  return (
       <div>
-          <h2 className='Header'>Match ID: {match.match_id} Date: {new Date(match.start_time * 1000).toDateString()} Duration: {Math.round(match.duration / 60)} minutes</h2>
+          <h2 className='Header'>Match ID: {match.match_id} Date: {new Date(match.start_time * 1000).toDateString()} Duration: {Math.round(match.duration / 60)} minutes {match.radiant_win ? 'Radiant Victory' : 'Dire Victory'}</h2>
           <table className="matchesTable">
             <thead className='tableHeader'>
               <tr>
@@ -30,15 +30,15 @@ const MatchTable : FC<MatchTableProps> = ({match}): ReactElement => {
                 </th>
               </tr>
             </thead>
-            <tbody> 
-                {match.players.map(player => {
+            <tbody>
+                {match.players.map((player, i) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <td>
                         {player.hero_name.split('npc_dota_hero_')[1].replace('_', ' ')}
                       </td>
                       <td>
-                        {player.team_number === 1 ? 'Dire' : 'Radiant'}  
+                        {player.team_number === 1 ? 'Dire' : 'Radiant'}
                       </td>
                       <td>
                         {player.net_worth}
@@ -55,7 +55,7 @@ const MatchTable : FC<MatchTableProps> = ({match}): ReactElement => {
             </tbody>
           </table>
         </div>
-    )
+  )
 }
 
-export default MatchTable;
+export default MatchTable

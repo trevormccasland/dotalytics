@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { getMatches, Matches } from './services/matchesClient';
-import './App.css';
-import MatchTable from './components/MatchTable';
-import MatchesRequestedInput from './components/MatchesRequestedInput';
-import KillsChart from './components/KillsChart';
-import HeroPicksChart from './components/HeroPicksChart';
+import React, { useEffect, useState, ReactElement } from 'react'
+import { getMatches, Matches } from './services/matchesClient'
+import './App.css'
+import MatchTable from './components/MatchTable'
+import MatchesRequestedInput from './components/MatchesRequestedInput'
+import KillsChart from './components/KillsChart'
+import HeroPicksChart from './components/HeroPicksChart'
 
-function App() {
+function App (): ReactElement {
   const [matches, setMatches] = useState([] as Matches)
   const [matchesRequested, setMatchesRequested] = useState(5)
   const [loading, setLoading] = useState(true)
   const [accountId, setAccountId] = useState('120525879')
 
   useEffect(() => {
-    const fetchMatches = async () => {
+    const fetchMatches = async (): Promise<void> => {
       setLoading(true)
       setMatches(await getMatches(matchesRequested, accountId))
       setLoading(false)
@@ -21,10 +21,9 @@ function App() {
     fetchMatches()
   }, [matchesRequested, accountId])
 
-  const selectOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => setMatchesRequested(parseInt(e.target.value))
-  const accountIdInputOnChange = (e :React.ChangeEvent<HTMLInputElement>) => setAccountId(e.target.value)
-  
-  
+  const selectOnChange = (e: React.ChangeEvent<HTMLSelectElement>): void => setMatchesRequested(parseInt(e.target.value))
+  const accountIdInputOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => setAccountId(e.target.value)
+
   return (
     <div className="App">
       <div className="TopBar">
@@ -40,14 +39,14 @@ function App() {
         <div className='dataContainer'>
           <KillsChart matches={matches} />
           <HeroPicksChart matches={matches} />
-        
+
           {matches.map(match => {
             return <MatchTable key={match.match_id} match={match} />
           })}
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,19 +1,19 @@
-import React, { FC, ReactElement } from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-import { Matches } from '../services/matchesClient';
+import React, { FC, ReactElement } from 'react'
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts'
+import { Matches } from '../services/matchesClient'
 
-type KillsChartProps = {
-    matches: Matches
+interface KillsChartProps {
+  matches: Matches
 }
 
-const KillsChart: FC<KillsChartProps> = ({matches}): ReactElement => {
-    const matchKills = matches.map(match => (
-        {
-            name: match.match_id,
-            kills: match.players.reduce((acc, player) => acc + player.kills, 0)
-        }
-    ))
-    return (
+const KillsChart: FC<KillsChartProps> = ({ matches }): ReactElement => {
+  const matchKills = matches.map(match => (
+    {
+      name: match.match_id,
+      kills: match.players.reduce((acc, player) => acc + player.kills, 0)
+    }
+  ))
+  return (
         <>
             <h2>Kills by Match ID</h2>
             <ResponsiveContainer width='100%' height={400}>
@@ -26,7 +26,7 @@ const KillsChart: FC<KillsChartProps> = ({matches}): ReactElement => {
                 </BarChart>
             </ResponsiveContainer>
         </>
-    )
+  )
 }
 
 export default KillsChart

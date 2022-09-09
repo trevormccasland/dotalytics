@@ -84,15 +84,15 @@ export interface PicksBan {
 
 // account ID to test with 120525879
 export const getMatches = async (matchesRequested: number, accountId: string): Promise<Matches> => {
-    try {
-        const url = `http://localhost:8888/matches?account_id=${accountId}&matches_requested=${matchesRequested}`
-        const response = await fetch(url)
-        if (!response.ok) {
-            throw new Error(`status ${response.status}`)
-        }
-        return await response.json()
-    } catch (error) {
-        console.error(`error getting matchesClient.getMatches(): ${error}`)
-        return []
+  try {
+    const url = `http://localhost:8888/matches?account_id=${accountId}&matches_requested=${matchesRequested}`
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error(`status ${response.status}`)
     }
+    return await response.json()
+  } catch (error: any) {
+    console.error('error getting matchesClient.getMatches():', error)
+    return []
+  }
 }
