@@ -1,0 +1,14 @@
+.TopBar {
+    height: 75px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
+
+.pageHeader {
+    color: white;
+    margin: 10px;
+}

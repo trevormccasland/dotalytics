@@ -1,4 +1,5 @@
 import React, { FC, ReactElement } from 'react'
+import { Link } from 'wouter'
 import { Match } from '../services/matchesClient'
 import './MatchTable.css'
 
@@ -9,7 +10,10 @@ interface MatchTableProps {
 const MatchTable: FC<MatchTableProps> = ({ match }): ReactElement => {
   return (
       <div>
-          <h2 className='Header'>Match ID: {match.match_id} Date: {new Date(match.start_time * 1000).toDateString()} Duration: {Math.round(match.duration / 60)} minutes {match.radiant_win ? 'Radiant Victory' : 'Dire Victory'}</h2>
+          <div className='headerContainer'>
+            <h2 className='Header'>Match ID: {match.match_id} Date: {new Date(match.start_time * 1000).toDateString()} Duration: {Math.round(match.duration / 60)} minutes {match.radiant_win ? 'Radiant Victory' : 'Dire Victory'}</h2>
+            <Link className='matchesLink' href={`/matches/${match.match_id}`}>Match Details</Link>
+          </div>
           <table className="matchesTable">
             <thead className='tableHeader'>
               <tr>

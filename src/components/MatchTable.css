@@ -7,15 +7,24 @@
 }
 
 .Header {
-    background-color: gainsboro;
     margin: 0;
     padding-left: 40px;
     display: flex;
-    border:solid black 1px;
-    border-radius:6px;
 }
 
 .tableHeader {
     border:solid black 2px;
     background-color: rgb(238, 238, 238)
+}
+
+.headerContainer {
+    display: flex;
+    background-color: gainsboro;
+    border:solid black 1px;
+    border-radius:6px;
+}
+
+.matchesLink {
+    position: absolute;
+    right: 50px;
 }

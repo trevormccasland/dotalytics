@@ -1,10 +1,13 @@
 import React, { useEffect, useState, ReactElement } from 'react'
-import { getMatches, Matches } from './services/matchesClient'
+import { Route } from 'wouter'
+import { getMatches, Match, Matches } from './services/matchesClient'
 import './App.css'
 import MatchTable from './components/MatchTable'
 import MatchesRequestedInput from './components/MatchesRequestedInput'
 import KillsChart from './components/KillsChart'
 import HeroPicksChart from './components/HeroPicksChart'
+import MatchDetails from './components/MatchDetails'
+import TopBar from './components/TopBar'
 
 function App (): ReactElement {
   const [matches, setMatches] = useState([] as Matches)
@@ -25,27 +28,33 @@ function App (): ReactElement {
   const accountIdInputOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => setAccountId(e.target.value)
 
   return (
-    <div className="App">
-      <div className="TopBar">
-        <h1 className='pageHeader'>{`Displaying the last ${matchesRequested} games`}</h1>
-        <div className='AccountIdInput'>
-          <label className='accountIdLabel'>Account ID</label>
-          <input value={accountId} onChange={accountIdInputOnChange} />
-        </div>
-        <MatchesRequestedInput selectOnChange={selectOnChange} />
-      </div>
-      {loading && <h2 className='loadingHeader'>loading ...</h2>}
-      {!loading && (
-        <div className='dataContainer'>
-          <KillsChart matches={matches} />
-          <HeroPicksChart matches={matches} />
+    <>
+      <Route path='/' >
+        <div className="App">
+          <TopBar title={`Displaying the last ${matchesRequested} games`}>
+            <div className='AccountIdInput'>
+              <label className='accountIdLabel'>Account ID</label>
+              <input value={accountId} onChange={accountIdInputOnChange} />
+            </div>
+            <MatchesRequestedInput selectOnChange={selectOnChange} />
+          </TopBar>
+          {loading && <h2 className='loadingHeader'>loading ...</h2>}
+          {!loading && (
+            <div className='dataContainer'>
+              <KillsChart matches={matches} />
+              <HeroPicksChart matches={matches} />
 
-          {matches.map(match => {
-            return <MatchTable key={match.match_id} match={match} />
-          })}
+              {matches.map(match => {
+                return <MatchTable key={match.match_id} match={match} />
+              })}
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </Route>
+      <Route path='/matches/:matchId'>
+        {(params) => <MatchDetails match={matches.find(match => match.match_id.toString() === params.matchId) as Match} />}
+      </Route>
+    </>
   )
 }
 
