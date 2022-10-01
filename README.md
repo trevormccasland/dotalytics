@@ -8,6 +8,14 @@ This repository is the UI for a dota2 analytical website. It uses any given acco
 
 Simply run `npm i`
 
+### dockerfile
+
+A dockerfile is provided for this project and can be built and ran like so:
+```bash
+docker build -t dotalytics .
+docker run -p 3000:3000 dotalytics
+```
+
 ### dotalytics-api
 
 The API is required to use the UI and can be found at [dotalytics-api](https://github.com/trevormccasland/dotalytics-api)
