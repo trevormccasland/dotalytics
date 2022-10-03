@@ -1,3 +1,7 @@
+import config from "../config.json"
+import { Config } from "../types"
+
+
 export type Matches = Match[]
 
 export interface Match {
@@ -85,7 +89,8 @@ export interface PicksBan {
 // account ID to test with 120525879
 export const getMatches = async (matchesRequested: number, accountId: string): Promise<Matches> => {
   try {
-    const url = `http://localhost:8888/matches?account_id=${accountId}&matches_requested=${matchesRequested}`
+    const projectConfig: Config = config
+    const url = `http://${projectConfig.host}:${projectConfig.port}/matches?account_id=${accountId}&matches_requested=${matchesRequested}`
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`status ${response.status}`)
