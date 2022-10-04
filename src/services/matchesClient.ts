@@ -1,6 +1,5 @@
-import config from "../config.json"
-import { Config } from "../types"
-
+import config from '../config.json'
+import { Config } from '../types'
 
 export type Matches = Match[]
 
