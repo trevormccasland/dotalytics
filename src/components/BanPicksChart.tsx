@@ -18,7 +18,7 @@ const BanPicksChart: FC<BanPicksChartProps> = ({ matches }): ReactElement => {
     return acc
   }, {})
 
-  const playerPicksData = Object.keys(banPicks).map(heroName => (
+  const banPicksData = Object.keys(banPicks).map(heroName => (
     {
       name: heroName.split('npc_dota_hero_')[1].replace('_', ' '),
       value: banPicks[heroName]
@@ -28,7 +28,7 @@ const BanPicksChart: FC<BanPicksChartProps> = ({ matches }): ReactElement => {
         <>
             <h2>Sum of Bans by Hero</h2>
             <ResponsiveContainer width='100%' height={400}>
-                <BarChart data={playerPicksData} >
+                <BarChart data={banPicksData} >
                     <Tooltip />
                     <Legend />
                     <YAxis />
