@@ -83,6 +83,7 @@ export interface PicksBan {
   hero_id: number
   team: number
   order: number
+  hero_name: string
 }
 
 // account ID to test with 120525879
