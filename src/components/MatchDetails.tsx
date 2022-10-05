@@ -124,6 +124,38 @@ const MatchDetails: FC<MatchDetailsProps> = ({ match }): ReactElement => {
     }
   ])
 
+  const healingData = match.players.reduce<TreemapItem[]>((acc, player) => {
+    if (player.team_number === 1) {
+      const child = acc.find(child => child.name === 'Dire')
+      if (player.hero_healing > 0) {
+        child?.children.push({
+          team: 'Dire',
+          name: player.hero_name.split('npc_dota_hero_')[1].replace('_', ' '),
+          size: player.hero_healing
+        })
+      }
+    } else {
+      const child = acc.find(child => child.name === 'Radiant')
+      if (player.hero_healing > 0) {
+        child?.children.push({
+          team: 'Radiant',
+          name: player.hero_name.split('npc_dota_hero_')[1].replace('_', ' '),
+          size: player.hero_healing
+        })
+      }
+    }
+    return acc
+  }, [
+    {
+      name: 'Dire',
+      children: []
+    },
+    {
+      name: 'Radiant',
+      children: []
+    }
+  ])
+
   return (
     <>
       <TopBar title={`Displaying Match ${match.match_id} Details ${match.radiant_win ? 'Radiant Victory' : 'Dire Victory'}`} />
@@ -142,6 +174,16 @@ const MatchDetails: FC<MatchDetailsProps> = ({ match }): ReactElement => {
         <ResponsiveContainer width='100%' height={500}>
           <Treemap
             data={netWorthData}
+            dataKey="size"
+            stroke="#fff"
+            fill="#8884d8"
+            content={<CustomizedContent />}
+          />
+        </ResponsiveContainer>
+        <h2>Healing By Hero</h2>
+        <ResponsiveContainer width='100%' height={500}>
+          <Treemap
+            data={healingData}
             dataKey="size"
             stroke="#fff"
             fill="#8884d8"
