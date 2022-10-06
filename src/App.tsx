@@ -9,6 +9,7 @@ import HeroPicksChart from './components/HeroPicksChart'
 import MatchDetails from './components/MatchDetails'
 import TopBar from './components/TopBar'
 import BanPicksChart from './components/BanPicksChart'
+import ItemWinProbabilityTable from './components/ItemWinProbabilityTable'
 
 function App (): ReactElement {
   const [matches, setMatches] = useState([] as Matches)
@@ -48,6 +49,7 @@ function App (): ReactElement {
               {matches.map(match => {
                 return <MatchTable key={match.match_id} match={match} />
               })}
+              <ItemWinProbabilityTable matches={matches} />
             </div>
           )}
         </div>
