@@ -1,12 +1,12 @@
 import React, { FC, ReactElement } from 'react'
 import { Match } from '../services/matchesClient'
-import './ItemWinProbabilityTable.css'
+import './ItemWinRateTable.css'
 
-interface ItemWinProbabilityTableProps {
+interface ItemWinRateTableProps {
   matches: Match[]
 }
 
-const ItemWinProbabilityTable: FC<ItemWinProbabilityTableProps> = ({ matches }): ReactElement => {
+const ItemWinRateTable: FC<ItemWinRateTableProps> = ({ matches }): ReactElement => {
   const winByItem: Record<string, number> = matches.reduce<Record<string, number>>((map, match) => {
     match.players.forEach(player => {
       if ((player.team_number === 1 && !match.radiant_win) || (player.team_number === 0 && match.radiant_win)) {
@@ -144,4 +144,4 @@ const ItemWinProbabilityTable: FC<ItemWinProbabilityTableProps> = ({ matches }):
   )
 }
 
-export default ItemWinProbabilityTable
+export default ItemWinRateTable
