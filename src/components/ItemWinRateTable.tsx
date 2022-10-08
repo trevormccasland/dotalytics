@@ -1,12 +1,12 @@
 import React, { FC, ReactElement } from 'react'
 import { Match } from '../services/matchesClient'
-import './ItemWinProbabilityTable.css'
+import './ItemWinRateTable.css'
 
-interface ItemWinProbabilityTableProps {
+interface ItemWinRateTableProps {
   matches: Match[]
 }
 
-const ItemWinProbabilityTable: FC<ItemWinProbabilityTableProps> = ({ matches }): ReactElement => {
+const ItemWinRateTable: FC<ItemWinRateTableProps> = ({ matches }): ReactElement => {
   const winByItem: Record<string, number> = matches.reduce<Record<string, number>>((map, match) => {
     match.players.forEach(player => {
       if ((player.team_number === 1 && !match.radiant_win) || (player.team_number === 0 && match.radiant_win)) {
@@ -123,7 +123,18 @@ const ItemWinProbabilityTable: FC<ItemWinProbabilityTableProps> = ({ matches }):
                     acc += 1
                   }
                   return acc
-                }, 0) / matches.length * 100}
+                }, 0) / matches.filter(match => match.players.some(player => (item === 'item_aghanims_shard' && player.aghanims_shard === 1) || (item === 'item_aghanims_scepter' && player.aghanims_scepter === 1) || [
+                  player.backpack_0_name,
+                  player.backpack_1_name,
+                  player.backpack_2_name,
+                  player.item_0_name,
+                  player.item_1_name,
+                  player.item_2_name,
+                  player.item_3_name,
+                  player.item_4_name,
+                  player.item_5_name,
+                  player.item_neutral_name
+                ].includes(item))).length * 100}
               </td>
             </tr>
           )
@@ -133,4 +144,4 @@ const ItemWinProbabilityTable: FC<ItemWinProbabilityTableProps> = ({ matches }):
   )
 }
 
-export default ItemWinProbabilityTable
+export default ItemWinRateTable
