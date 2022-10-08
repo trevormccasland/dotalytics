@@ -123,7 +123,18 @@ const ItemWinProbabilityTable: FC<ItemWinProbabilityTableProps> = ({ matches }):
                     acc += 1
                   }
                   return acc
-                }, 0) / matches.length * 100}
+                }, 0) / matches.filter(match => match.players.some(player => (item === 'item_aghanims_shard' && player.aghanims_shard === 1) || (item === 'item_aghanims_scepter' && player.aghanims_scepter === 1) || [
+                  player.backpack_0_name,
+                  player.backpack_1_name,
+                  player.backpack_2_name,
+                  player.item_0_name,
+                  player.item_1_name,
+                  player.item_2_name,
+                  player.item_3_name,
+                  player.item_4_name,
+                  player.item_5_name,
+                  player.item_neutral_name
+                ].includes(item))).length * 100}
               </td>
             </tr>
           )
