@@ -60,15 +60,19 @@ const ItemWinProbabilityTable: FC<ItemWinProbabilityTableProps> = ({ matches }):
         } else {
           map[player.backpack_2_name] = 1
         }
-        if (player.aghanims_shard in map) {
-          map[player.aghanims_shard] += 1
-        } else {
-          map[player.aghanims_shard] = 1
+        if (player.aghanims_shard === 1) {
+          if ('item_aghanims_shard' in map) {
+            map.item_aghanims_shard += 1
+          } else {
+            map.item_aghanims_shard = 1
+          }
         }
-        if (player.aghanims_scepter in map) {
-          map[player.aghanims_scepter] += 1
-        } else {
-          map[player.aghanims_scepter] = 1
+        if (player.aghanims_scepter === 1) {
+          if ('item_aghanims_scepter' in map) {
+            map.item_aghanims_scepter += 1
+          } else {
+            map.item_aghanims_scepter = 1
+          }
         }
       }
     })
@@ -103,7 +107,7 @@ const ItemWinProbabilityTable: FC<ItemWinProbabilityTableProps> = ({ matches }):
               <td>
                 {matches.reduce((acc, match) => {
                   if (match.players.some(player => ((player.team_number === 1 && !match.radiant_win) || (player.team_number === 0 && match.radiant_win)) && (
-                    [
+                    item === 'item_aghanims_shard' || item === 'item_aghanims_scepter' || [
                       player.backpack_0_name,
                       player.backpack_1_name,
                       player.backpack_2_name,
