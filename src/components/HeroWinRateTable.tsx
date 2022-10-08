@@ -46,7 +46,7 @@ const HeroWinRateTable: FC<HeroWinRateTableProps> = ({ matches }): ReactElement 
                 <img src={`http://cdn.dota2.com/apps/dota2/images/heroes/${hero.split('npc_dota_hero_')[1]}_sb.png`} />
               </td>
               <td>
-                {hero}
+                {hero.split('npc_dota_hero_')[1]}
               </td>
               <td>
                 {winByHero[hero]}
