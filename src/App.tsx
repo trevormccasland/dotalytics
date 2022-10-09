@@ -11,6 +11,7 @@ import TopBar from './components/TopBar'
 import BanPicksChart from './components/BanPicksChart'
 import HeroWinRateTable from './components/HeroWinRateTable'
 import ItemWinRateTable from './components/ItemWinRateTable'
+import RadiantDireWinChart from './components/RadiantDireWinChart'
 
 function App (): ReactElement {
   const [matches, setMatches] = useState([] as Matches)
@@ -44,6 +45,7 @@ function App (): ReactElement {
           {loading && <h2 className='loadingHeader'>loading ...</h2>}
           {!loading && (
             <div className='dataContainer'>
+              <RadiantDireWinChart matches={matches} />
               <KillsChart matches={matches} />
               <HeroPicksChart matches={matches} />
               <BanPicksChart matches={matches} />
