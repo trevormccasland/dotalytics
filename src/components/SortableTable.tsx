@@ -3,7 +3,7 @@ import React, { FC, ReactElement, useEffect, useState } from 'react'
 export interface Cell {
   displayValue: string
   sortableValue: string | number
-  imgIndex?: number
+  isImg: boolean
 }
 
 export enum SortOrder {
@@ -69,7 +69,7 @@ const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defau
         {rows.map((row, i) => (
           <tr key={i}>
             {row.map((cell, j) => {
-              if (cell.imgIndex === i) {
+              if (cell.isImg) {
                 return (
                   <td key={`${i}${j}`}>
                     <img src={cell.displayValue} />

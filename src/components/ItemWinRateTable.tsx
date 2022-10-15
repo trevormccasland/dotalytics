@@ -113,12 +113,12 @@ const ItemWinRateTable: FC<ItemWinRateTableProps> = ({ matches }): ReactElement 
       player.item_neutral_name
     ].includes(item))).length * 100
     return [
-      { displayValue: item.split('item_')[1], sortableValue: item.split('item_')[1] },
-      { displayValue: winByItem[item].toString(), sortableValue: winByItem[item] },
-      { displayValue: winPercentage.toString(), sortableValue: winPercentage }
+      { displayValue: item.split('item_')[1], sortableValue: item.split('item_')[1], isImg: false },
+      { displayValue: winByItem[item].toString(), sortableValue: winByItem[item], isImg: false },
+      { displayValue: winPercentage.toString(), sortableValue: winPercentage, isImg: false }
     ]
   })
-  return <SortableTable columnNames={['Item Name', '# Item Wins', 'Item Win %']} defaultRows={rowData} defaultSortIndex={1} defaultSortOrder={SortOrder.ASCENDING}/>
+  return <SortableTable columnNames={['Item Name', '# Item Wins', 'Item Win %']} defaultRows={rowData} defaultSortIndex={1} defaultSortOrder={SortOrder.ASCENDING} />
 }
 
 export default ItemWinRateTable
