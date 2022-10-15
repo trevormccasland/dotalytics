@@ -1,7 +1,5 @@
 import React, { FC, ReactElement } from 'react'
 import { Match } from '../services/matchesClient'
-
-import './HeroWinRateTable.css'
 import SortableTable, { Cell, SortOrder } from './SortableTable'
 
 interface HeroWinRateTableProps {

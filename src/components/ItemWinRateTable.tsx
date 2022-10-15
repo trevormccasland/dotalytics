@@ -1,8 +1,6 @@
 import React, { FC, ReactElement } from 'react'
 import { Match } from '../services/matchesClient'
-import './ItemWinRateTable.css'
 import SortableTable, { Cell, SortOrder } from './SortableTable'
-import './SortableTable.css'
 
 interface ItemWinRateTableProps {
   matches: Match[]

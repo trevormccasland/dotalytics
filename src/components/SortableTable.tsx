@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react'
+import './SortableTable.css'
 
 export interface Cell {
   displayValue: string
@@ -52,8 +53,8 @@ const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defau
     }
   }
   return (
-    <table className='heroWinRateTable'>
-      <thead className='tableHeader'>
+    <table className='table'>
+      <thead className='header'>
         <tr>
           {columnNames.map((col, i) => (
             <th key={i}>
