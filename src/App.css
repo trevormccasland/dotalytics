@@ -14,12 +14,12 @@
   text-align: center;
 }
 
-.AccountIdInput {
+.AppInput {
   position: fixed;
   right: 400px;
 }
 
-.accountIdLabel {
+.AppLabel {
   color: white;
   font-weight: bold;
   margin: 10px;
