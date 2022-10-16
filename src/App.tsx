@@ -42,20 +42,22 @@ function App (): ReactElement {
             </div>
             <MatchesRequestedInput selectOnChange={selectOnChange} />
           </TopBar>
-          {loading && <h2 className='loadingHeader'>loading ...</h2>}
-          {!loading && (
-            <div className='dataContainer'>
-              <RadiantDireWinChart matches={matches} />
-              <KillsChart matches={matches} />
-              <HeroPicksChart matches={matches} />
-              <BanPicksChart matches={matches} />
-              <ItemWinRateTable matches={matches} />
-              <HeroWinRateTable matches={matches} />
-              {matches.map(match => {
-                return <MatchTable key={match.match_id} match={match} />
-              })}
-            </div>
-          )}
+          {loading && <h2 className='AppHeader'>loading ...</h2>}
+          {!loading && ((matches.length > 0)
+            ? (
+                <div className='dataContainer'>
+                  <RadiantDireWinChart matches={matches} />
+                  <KillsChart matches={matches} />
+                  <HeroPicksChart matches={matches} />
+                  <BanPicksChart matches={matches} />
+                  <ItemWinRateTable matches={matches} />
+                  <HeroWinRateTable matches={matches} />
+                  {matches.map(match => {
+                    return <MatchTable key={match.match_id} match={match} />
+                  })}
+                </div>
+              )
+            : <h2 className='AppHeader'>No Data Available</h2>)}
         </div>
       </Route>
       <Route path='/matches/:matchId'>
