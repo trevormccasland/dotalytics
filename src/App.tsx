@@ -63,7 +63,7 @@ function App (): ReactElement {
             </div>
             <MatchesRequestedInput selectOnChange={selectOnChange} />
           </TopBar>
-          {accountId === '' && <h2 className='AppHeader'>Search by Username or Steam ID</h2>}
+          {accountId === '' && matches.length === 0 && <h2 className='AppHeader'>Search by Username or Steam ID</h2>}
           {accountId !== '' && loading && <h2 className='AppHeader'>loading ...</h2>}
           {!loading && ((matches.length > 0)
             ? (
