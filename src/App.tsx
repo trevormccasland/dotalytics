@@ -12,12 +12,14 @@ import BanPicksChart from './components/BanPicksChart'
 import HeroWinRateTable from './components/HeroWinRateTable'
 import ItemWinRateTable from './components/ItemWinRateTable'
 import RadiantDireWinChart from './components/RadiantDireWinChart'
+import { getUser } from './services/userClient'
 
 function App (): ReactElement {
   const [matches, setMatches] = useState([] as Matches)
   const [matchesRequested, setMatchesRequested] = useState(5)
   const [loading, setLoading] = useState(true)
   const [accountId, setAccountId] = useState('120525879')
+  const [username, setUsername] = useState('')
 
   useEffect(() => {
     const fetchMatches = async (): Promise<void> => {
@@ -28,8 +30,19 @@ function App (): ReactElement {
     fetchMatches()
   }, [matchesRequested, accountId])
 
+  useEffect(() => {
+    const fetchUser = async (): Promise<void> => {
+      setLoading(true)
+      const resp = await getUser(username)
+      setAccountId(resp.steamid ?? accountId)
+      setLoading(false)
+    }
+    if (username !== '') fetchUser()
+  }, [username])
+
   const selectOnChange = (e: React.ChangeEvent<HTMLSelectElement>): void => setMatchesRequested(parseInt(e.target.value))
   const accountIdInputOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => setAccountId(e.target.value)
+  const usernameInputOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => setUsername(e.target.value)
 
   return (
     <>
@@ -37,6 +50,8 @@ function App (): ReactElement {
         <div className="App">
           <TopBar title={`Displaying the last ${matchesRequested} games`}>
             <div className='AccountIdInput'>
+              <label className='accountIdLabel'>Custom URL Search</label>
+              <input value={username} onChange={usernameInputOnChange} />
               <label className='accountIdLabel'>Account ID</label>
               <input value={accountId} onChange={accountIdInputOnChange} />
             </div>
