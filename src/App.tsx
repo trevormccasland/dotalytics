@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactElement } from 'react'
+import React, { useState, ReactElement, useEffect } from 'react'
 import { Route } from 'wouter'
 import { getMatches, Match, Matches } from './services/matchesClient'
 import './App.css'
@@ -18,46 +18,53 @@ function App (): ReactElement {
   const [matches, setMatches] = useState([] as Matches)
   const [matchesRequested, setMatchesRequested] = useState(5)
   const [loading, setLoading] = useState(true)
-  const [accountId, setAccountId] = useState('120525879')
+  const [accountId, setAccountId] = useState('')
   const [username, setUsername] = useState('')
 
-  useEffect(() => {
-    const fetchMatches = async (): Promise<void> => {
-      setLoading(true)
-      setMatches(await getMatches(matchesRequested, accountId))
-      setLoading(false)
-    }
-    fetchMatches()
-  }, [matchesRequested, accountId])
+  const fetchMatches = async (id: string): Promise<void> => {
+    setLoading(true)
+    setMatches(await getMatches(matchesRequested, id))
+    setLoading(false)
+  }
+
+  const fetchUserAndMatches = async (): Promise<void> => {
+    setLoading(true)
+    const resp = await getUser(username)
+    setAccountId(resp.steamid ?? accountId)
+    await fetchMatches(resp.steamid ?? accountId)
+  }
 
   useEffect(() => {
-    const fetchUser = async (): Promise<void> => {
-      setLoading(true)
-      const resp = await getUser(username)
-      setAccountId(resp.steamid ?? accountId)
-      setLoading(false)
-    }
-    if (username !== '') fetchUser()
-  }, [username])
+    if (accountId !== '') fetchMatches(accountId)
+  }, [matchesRequested])
 
   const selectOnChange = (e: React.ChangeEvent<HTMLSelectElement>): void => setMatchesRequested(parseInt(e.target.value))
   const accountIdInputOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => setAccountId(e.target.value)
   const usernameInputOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => setUsername(e.target.value)
 
+  const searchOnClick = (): void => {
+    if (accountId !== '') {
+      fetchMatches(accountId)
+    } else if (username !== '') {
+      fetchUserAndMatches()
+    }
+  }
   return (
     <>
       <Route path='/' >
         <div className="App">
           <TopBar title={`Displaying the last ${matchesRequested} games`}>
-            <div className='AccountIdInput'>
-              <label className='accountIdLabel'>Custom URL Search</label>
+            <div className='AppInput'>
+              <label className='AppLabel'>Username</label>
               <input value={username} onChange={usernameInputOnChange} />
-              <label className='accountIdLabel'>Account ID</label>
+              <label className='AppLabel'>Steam ID</label>
               <input value={accountId} onChange={accountIdInputOnChange} />
+              <button onClick={searchOnClick}>Search</button>
             </div>
             <MatchesRequestedInput selectOnChange={selectOnChange} />
           </TopBar>
-          {loading && <h2 className='AppHeader'>loading ...</h2>}
+          {accountId === '' && <h2 className='AppHeader'>Search by Username or Steam ID</h2>}
+          {accountId !== '' && loading && <h2 className='AppHeader'>loading ...</h2>}
           {!loading && ((matches.length > 0)
             ? (
                 <div className='dataContainer'>
