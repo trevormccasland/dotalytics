@@ -35,7 +35,7 @@ interface CustomizedContentProps {
 }
 
 const CustomizedContent: FC<CustomizedContentProps> = ({ root, depth, x, y, width, height, index, name }): ReactElement => {
-  depth = depth ?? 0
+  depth = depth ?? 0 + 1e-10
   x = x ?? 0
   y = y ?? 0
   width = width ?? 0
@@ -57,8 +57,8 @@ const CustomizedContent: FC<CustomizedContentProps> = ({ root, depth, x, y, widt
           style={{
             fill,
             stroke: '#fff',
-            strokeWidth: 2 / (depth ?? 0 + 1e-10),
-            strokeOpacity: 1 / (depth ?? 0 + 1e-10)
+            strokeWidth: 2 / (depth),
+            strokeOpacity: 1 / (depth)
           }}
         />
         <text x={x + width / 2} y={y + height / 2} textAnchor="middle" fill="#fff" fontSize={depth === 1 ? 24 : 14}>{root?.children[index].name}</text>
