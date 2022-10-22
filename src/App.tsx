@@ -20,8 +20,10 @@ function App (): ReactElement {
   const [loading, setLoading] = useState(true)
   const [accountId, setAccountId] = useState('')
   const [username, setUsername] = useState('')
+  const [error, setError] = useState('')
 
   const fetchMatches = async (id: string): Promise<void> => {
+    setError('')
     setLoading(true)
     setMatches(await getMatches(matchesRequested, id))
     setLoading(false)
@@ -30,8 +32,13 @@ function App (): ReactElement {
   const fetchUserAndMatches = async (): Promise<void> => {
     setLoading(true)
     const resp = await getUser(username)
-    setAccountId(resp.steamid ?? accountId)
-    await fetchMatches(resp.steamid ?? accountId)
+    if (resp.steamid === null) {
+      setError('Could not find steam ID for "' + username + '" make sure the custom url on your steam account is set to match your search')
+      setLoading(false)
+    } else {
+      setAccountId(resp.steamid ?? accountId)
+      await fetchMatches(resp.steamid ?? accountId)
+    }
   }
 
   useEffect(() => {
@@ -63,9 +70,10 @@ function App (): ReactElement {
             </div>
             <MatchesRequestedInput selectOnChange={selectOnChange} />
           </TopBar>
-          {accountId === '' && matches.length === 0 && <h2 className='AppHeader'>Search by Username or Steam ID</h2>}
-          {accountId !== '' && loading && <h2 className='AppHeader'>loading ...</h2>}
-          {!loading && ((matches.length > 0)
+          {!loading && error !== '' && <h2 className='AppHeader'>Error: {error}</h2>}
+          {error === '' && accountId === '' && matches.length === 0 && <h2 className='AppHeader'>Search by Username or Steam ID</h2>}
+          {error === '' && accountId !== '' && loading && <h2 className='AppHeader'>loading ...</h2>}
+          {error === '' && !loading && ((matches.length > 0)
             ? (
                 <div className='dataContainer'>
                   <RadiantDireWinChart matches={matches} />
