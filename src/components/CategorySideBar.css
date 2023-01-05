@@ -1,0 +1,17 @@
+.sideBarContainer {
+  background-color: grey;
+  width: 200px;
+  height: auto;
+}
+
+.sideBarButton {
+  padding-top: 30px;
+  font-size: x-large;
+  background-color: inherit;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 2px solid black;
+  width: 100%;
+}
+
