@@ -13,6 +13,7 @@ import HeroWinRateTable from './components/HeroWinRateTable'
 import ItemWinRateTable from './components/ItemWinRateTable'
 import RadiantDireWinChart from './components/RadiantDireWinChart'
 import { getUser } from './services/userClient'
+import CategorySideBar from './components/CategorySideBar'
 
 function App (): ReactElement {
   const [matches, setMatches] = useState([] as Matches)
@@ -21,6 +22,7 @@ function App (): ReactElement {
   const [accountId, setAccountId] = useState('')
   const [username, setUsername] = useState('')
   const [error, setError] = useState('')
+  const [categoryIndex, setCategoryIndex] = useState(0)
 
   const fetchMatches = async (id: string): Promise<void> => {
     setError('')
@@ -75,16 +77,19 @@ function App (): ReactElement {
           {error === '' && accountId !== '' && loading && <h2 className='AppHeader'>loading ...</h2>}
           {error === '' && !loading && ((matches.length > 0)
             ? (
-                <div className='dataContainer'>
-                  <RadiantDireWinChart matches={matches} />
-                  <KillsChart matches={matches} />
-                  <HeroPicksChart matches={matches} />
-                  <BanPicksChart matches={matches} />
-                  <ItemWinRateTable matches={matches} />
-                  <HeroWinRateTable matches={matches} />
-                  {matches.map(match => {
-                    return <MatchTable key={match.match_id} match={match} />
-                  })}
+                <div className='container'>
+                  <CategorySideBar selectedIndex={categoryIndex} onCategoryChange={setCategoryIndex}/>
+                  <div className='dataContainer'>
+                    { categoryIndex === 0 && <RadiantDireWinChart matches={matches} /> }
+                    { categoryIndex === 1 && <KillsChart matches={matches} /> }
+                    { categoryIndex === 2 && <HeroPicksChart matches={matches} /> }
+                    { categoryIndex === 3 && <BanPicksChart matches={matches} /> }
+                    { categoryIndex === 4 && <ItemWinRateTable matches={matches} /> }
+                    { categoryIndex === 5 && <HeroWinRateTable matches={matches} /> }
+                    { categoryIndex === 6 && matches.map(match => {
+                      return <MatchTable key={match.match_id} match={match} />
+                    }) }
+                  </div>
                 </div>
               )
             : <h2 className='AppHeader'>No Data Available</h2>)}

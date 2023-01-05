@@ -159,7 +159,7 @@ const MatchDetails: FC<MatchDetailsProps> = ({ match }): ReactElement => {
   return (
     <>
       <TopBar title={`Displaying Match ${match.match_id} Details ${match.radiant_win ? 'Radiant Victory' : 'Dire Victory'}`} />
-      <div className='dataContainer'>
+      <div className='matchDetailsDataContainer'>
         <h2>Kills By Hero</h2>
         <ResponsiveContainer width='100%' height={500}>
           <Treemap

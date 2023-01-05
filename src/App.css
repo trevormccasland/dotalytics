@@ -2,9 +2,13 @@
   text-align: left;
 }
 
-.dataContainer {
+.container {
   padding-top: 75px;
-  width: auto;
+  display: flex;
+}
+
+.dataContainer {
+  width: 100%;
   margin-left: 20px;
   margin-right: 20px;
 }
