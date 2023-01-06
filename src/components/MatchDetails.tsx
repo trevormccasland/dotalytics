@@ -181,15 +181,17 @@ const MatchDetails: FC<MatchDetailsProps> = ({ match }): ReactElement => {
           />
         </ResponsiveContainer>
         <h2>Healing By Hero</h2>
-        <ResponsiveContainer width='100%' height={500}>
-          <Treemap
-            data={healingData}
-            dataKey="size"
-            stroke="#fff"
-            fill="#8884d8"
-            content={<CustomizedContent />}
-          />
-        </ResponsiveContainer>
+        { healingData[0].children.length > 0 && healingData[1].children.length > 0
+          ? <ResponsiveContainer width='100%' height={500}>
+            <Treemap
+              data={healingData}
+              dataKey="size"
+              stroke="#fff"
+              fill="#8884d8"
+              content={<CustomizedContent />}
+            />
+          </ResponsiveContainer>
+          : <h3>Missing Healing Data</h3> }
       </div>
     </>
   )
