@@ -1,6 +1,6 @@
 .sideBarContainer {
   background-color: grey;
-  width: 200px;
+  width: 250px;
   height: auto;
 }
 
@@ -8,10 +8,17 @@
   padding-top: 30px;
   font-size: x-large;
   background-color: inherit;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  border-bottom: 2px solid black;
+  border: none;
   width: 100%;
+  display: flex;
 }
 
+.sideBarItem {
+  border-bottom: 2px solid black;
+  display: flex;
+  align-items: center;
+}
+
+.sideBarIcon {
+  margin-right: 1rem;
+}
