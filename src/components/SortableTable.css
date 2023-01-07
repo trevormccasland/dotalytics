@@ -10,3 +10,23 @@
   border:solid black 2px;
   background-color: rgb(238, 238, 238)
 }
+
+.sortableTableSearchInputContainer{
+  border: 1px solid black;
+  margin-left: 1rem;
+}
+
+.sortableTableSearchInput {
+  border: none;
+}
+
+.sortableTableSearchInput:focus {
+  outline: none;
+}
+
+.sortableTableTopArea {
+  display: flex;
+  float: right;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
