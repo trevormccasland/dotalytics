@@ -116,7 +116,7 @@ const ItemWinRateTable: FC<ItemWinRateTableProps> = ({ matches }): ReactElement 
       { displayValue: winPercentage.toString(), sortableValue: winPercentage, isImg: false }
     ]
   })
-  return <SortableTable columnNames={['Item Name', '# Item Wins', 'Item Win %']} defaultRows={rowData} defaultSortIndex={1} defaultSortOrder={SortOrder.ASCENDING} />
+  return <SortableTable columnNames={['Item Name', '# Item Wins', 'Item Win %']} defaultRows={rowData} defaultSortIndex={1} defaultSortOrder={SortOrder.ASCENDING} title={'Item Win Rate'} />
 }
 
 export default ItemWinRateTable

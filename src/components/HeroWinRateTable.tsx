@@ -41,7 +41,7 @@ const HeroWinRateTable: FC<HeroWinRateTableProps> = ({ matches }): ReactElement 
     ]
   })
 
-  return <SortableTable columnNames={['Photo', 'Hero Name', '# Hero Wins', 'Hero Win %']} defaultRows={defaultRows} defaultSortIndex={2} defaultSortOrder={SortOrder.ASCENDING} />
+  return <SortableTable columnNames={['Photo', 'Hero Name', '# Hero Wins', 'Hero Win %']} defaultRows={defaultRows} defaultSortIndex={2} defaultSortOrder={SortOrder.ASCENDING} title={'Hero Win Rate'} />
 }
 
 export default HeroWinRateTable

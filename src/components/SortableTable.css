@@ -13,7 +13,8 @@
 
 .sortableTableSearchInputContainer{
   border: 1px solid black;
-  margin-left: 1rem;
+  position: absolute;
+  right: 100px;
 }
 
 .sortableTableSearchInput {
@@ -29,4 +30,10 @@
   float: right;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
+  align-items: center;
+}
+
+.sortableTableTitle {
+
 }

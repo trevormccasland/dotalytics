@@ -18,9 +18,10 @@ interface SortableTableProps {
   defaultRows: Cell[][]
   defaultSortIndex: number
   defaultSortOrder: SortOrder
+  title: string
 }
 
-const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defaultSortIndex, defaultSortOrder }): ReactElement => {
+const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defaultSortIndex, defaultSortOrder, title }): ReactElement => {
   const [searchValue, setSearchValue] = useState('')
   const [rows, setRows] = useState(defaultRows)
 
@@ -63,7 +64,7 @@ const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defau
   return (
     <div>
       <div className='sortableTableTopArea'>
-        <label>Search</label>
+        <h2>{title}</h2>
         <div className='sortableTableSearchInputContainer'>
           <input className='sortableTableSearchInput' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}/>
           <FaSearch />
