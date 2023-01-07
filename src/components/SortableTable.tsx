@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react'
+import { FaSearch } from 'react-icons/fa'
 import './SortableTable.css'
 
 export interface Cell {
@@ -20,10 +21,16 @@ interface SortableTableProps {
 }
 
 const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defaultSortIndex, defaultSortOrder }): ReactElement => {
+  const [searchValue, setSearchValue] = useState('')
   const [rows, setRows] = useState(defaultRows)
 
   const [sortOrder, setSortOrder] = useState<SortOrder>(defaultSortOrder)
   const [sortIndex, setSortIndex] = useState(defaultSortIndex)
+
+  useEffect(() => {
+    setRows(defaultRows.filter(row => searchValue === '' || row.some(cell => !cell.isImg && cell.displayValue.includes(searchValue))))
+  }, [searchValue])
+
   useEffect(() => {
     if (sortOrder === SortOrder.DESCENDING) {
       setRows([...rows.sort((a, b) => {
@@ -37,6 +44,7 @@ const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defau
       })])
     }
   }, [sortOrder, sortIndex])
+
   const getSortIcon = (index: number): string | undefined => {
     if (sortIndex !== index) return undefined
     return sortOrder === SortOrder.ASCENDING ? '👇' : '👆'
@@ -53,40 +61,49 @@ const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defau
     }
   }
   return (
-    <table className='table'>
-      <thead className='header'>
-        <tr>
-          {columnNames.map((col, i) => (
-            <th key={i}>
-              <button onClick={() => updateSortIndexAndSortOrder(i)}>
-                {col}
-              </button>
-              {getSortIcon(i)}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, i) => (
-          <tr key={i}>
-            {row.map((cell, j) => {
-              if (cell.isImg) {
+    <div>
+      <div className='sortableTableTopArea'>
+        <label>Search</label>
+        <div className='sortableTableSearchInputContainer'>
+          <input className='sortableTableSearchInput' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}/>
+          <FaSearch />
+        </div>
+      </div>
+      <table className='table'>
+        <thead className='header'>
+          <tr>
+            {columnNames.map((col, i) => (
+              <th key={i}>
+                <button onClick={() => updateSortIndexAndSortOrder(i)}>
+                  {col}
+                </button>
+                {getSortIcon(i)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i}>
+              {row.map((cell, j) => {
+                if (cell.isImg) {
+                  return (
+                    <td key={`${i}${j}`}>
+                      <img src={cell.displayValue} />
+                    </td>
+                  )
+                }
                 return (
                   <td key={`${i}${j}`}>
-                    <img src={cell.displayValue} />
+                    {cell.displayValue}
                   </td>
                 )
-              }
-              return (
-                <td key={`${i}${j}`}>
-                  {cell.displayValue}
-                </td>
-              )
-            })}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
