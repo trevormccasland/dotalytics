@@ -1,17 +1,49 @@
 .sideBarContainer {
   background-color: grey;
-  width: 200px;
+  width: 250px;
   height: auto;
+  transition: width 0.2s;
 }
 
-.sideBarButton {
-  padding-top: 30px;
+.sideBarContainerCollapsed {
+  background-color: grey;
+  width: 75px;
+  height: auto;
+  transition: width 0.2s;
+}
+
+.sideBarText {
   font-size: x-large;
   background-color: inherit;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  border-bottom: 2px solid black;
   width: 100%;
+  white-space: nowrap;
 }
 
+.sideBarItem {
+  border-bottom: 2px solid black;
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.sideBarIcon {
+  margin: auto;
+}
+
+.sideBarIconCollapsed {
+  margin: auto;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+
+.sideBarLeftArrow {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 11.5rem;
+}
+
+.sideBarRightArrow { 
+  margin: 1rem 0rem 1rem 0rem;
+}
