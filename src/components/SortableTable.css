@@ -37,3 +37,8 @@
   width: 100%;
   align-items: center;
 }
+
+.sortTableHeaderCellContent {
+  display: flex;
+  align-items: center;
+}
