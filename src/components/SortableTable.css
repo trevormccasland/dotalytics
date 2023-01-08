@@ -15,6 +15,10 @@
   border: 1px solid black;
   position: absolute;
   right: 100px;
+  border-radius: 16px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .sortableTableSearchInput {
