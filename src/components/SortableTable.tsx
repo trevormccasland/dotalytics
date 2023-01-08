@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react'
-import { FaSearch } from 'react-icons/fa'
+import { FaSearch, FaSortDown, FaSortUp } from 'react-icons/fa'
 import './SortableTable.css'
 
 export interface Cell {
@@ -46,9 +46,9 @@ const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defau
     }
   }, [sortOrder, sortIndex])
 
-  const getSortIcon = (index: number): string | undefined => {
+  const getSortIcon = (index: number): ReactElement | undefined => {
     if (sortIndex !== index) return undefined
-    return sortOrder === SortOrder.ASCENDING ? '👇' : '👆'
+    return sortOrder === SortOrder.ASCENDING ? <FaSortDown size={20} /> : <FaSortUp size={20} />
   }
   const updateSortIndexAndSortOrder = (index: number): void => {
     if (sortIndex !== index) {
@@ -75,10 +75,12 @@ const SortableTable: FC<SortableTableProps> = ({ columnNames, defaultRows, defau
           <tr>
             {columnNames.map((col, i) => (
               <th key={i}>
-                <button onClick={() => updateSortIndexAndSortOrder(i)}>
-                  {col}
-                </button>
-                {getSortIcon(i)}
+                <div className='sortTableHeaderCellContent'>
+                  <button onClick={() => updateSortIndexAndSortOrder(i)}>
+                    {col}
+                  </button>
+                  {getSortIcon(i)}
+                </div>
               </th>
             ))}
           </tr>
