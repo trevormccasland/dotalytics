@@ -3,6 +3,8 @@
   width: 250px;
   height: auto;
   transition: width 0.2s;
+  position: sticky;
+  top: 75px;
 }
 
 .sideBarContainerCollapsed {
@@ -10,6 +12,8 @@
   width: 75px;
   height: auto;
   transition: width 0.2s;
+  position: sticky;
+  top: 75px;
 }
 
 .sideBarText {
